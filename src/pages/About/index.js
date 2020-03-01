@@ -7,11 +7,14 @@ import Content from "./Content";
 
 export default function About() {
   const [pageData, setPageData] = useState();
+  const [isLoaded, setIsLoaded] = useState();
 
   useEffect(() => {
+    setIsLoaded(false);
     api("pages")
       .get("141")
       .then(({ data }) => {
+        setIsLoaded(true);
         setPageData(data);
       });
   }, []);
@@ -19,7 +22,7 @@ export default function About() {
   return (
     <Container>
       <Header />
-      <Content content={pageData} />
+      <Content content={pageData} isLoaded={isLoaded} />
     </Container>
   );
 }
